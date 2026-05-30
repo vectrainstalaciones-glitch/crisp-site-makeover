@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const SYSTEM_PROMPT = `Eres el asistente virtual de Vectra Instalaciones, una empresa de soluciones integradas de instalaciones industriales con sede en El Puerto de Santa María (Cádiz). El equipo técnico cuenta con más de 10 años de experiencia acumulada.
+const SYSTEM_PROMPT = `Eres el asistente virtual de Vectra Instalaciones, una empresa de soluciones integradas de instalaciones industriales y civiles con sede en El Puerto de Santa María (Cádiz). El equipo técnico cuenta con más de 10 años de experiencia acumulada.
 
 SERVICIOS:
 - Infraestructura industrial pesada
