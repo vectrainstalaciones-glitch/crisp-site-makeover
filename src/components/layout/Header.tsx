@@ -7,21 +7,21 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#inicio" className="group flex items-center gap-3">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+        <a href="#inicio" className="group flex flex-shrink-0 items-center gap-3">
           <img
             src={logo}
             alt="Vectra Instalaciones"
-            className="h-12 w-12 object-contain drop-shadow-[0_0_10px_rgba(0,70,255,0.55)] transition group-hover:scale-105"
+            className="h-11 w-11 object-contain drop-shadow-[0_0_10px_rgba(0,70,255,0.55)] transition group-hover:scale-105"
           />
-          <div>
-            <span className="block text-2xl font-black tracking-wider leading-none text-white">VECTRA</span>
-            <span className="mt-1 block text-[10px] font-extrabold uppercase tracking-[0.25em] text-[hsl(var(--vectra-red))] text-vectra-red" style={{ color: "#e60012" }}>
+          <div className="leading-none">
+            <span className="block text-xl font-black tracking-wider text-white">VECTRA</span>
+            <span className="mt-1 block text-[9px] font-extrabold uppercase tracking-[0.22em]" style={{ color: "#e60012" }}>
               Instalaciones
             </span>
           </div>
         </a>
-        <nav className="hidden items-center gap-8 text-sm font-medium tracking-wide md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium tracking-wide lg:flex">
           <a href="#inicio" className="text-white transition hover:text-[#00d2ff]">Inicio</a>
           <a href="#servicios" className="text-muted-foreground transition hover:text-white">Servicios</a>
           <a href="#trayectoria" className="text-muted-foreground transition hover:text-white">Empresa</a>

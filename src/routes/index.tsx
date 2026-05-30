@@ -13,10 +13,10 @@ import { ChatWidget } from "@/components/ChatWidget";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vectra Instalaciones | Ingeniería y Montajes Eléctricos Industriales" },
-      { name: "description", content: "Instalaciones eléctricas profesionales para sectores comerciales e industriales. Sede en El Puerto de Santa María (Cádiz). +10 años de experiencia." },
-      { property: "og:title", content: "Vectra Instalaciones — Ingeniería Eléctrica" },
-      { property: "og:description", content: "Soluciones integrales de energía, mantenimiento y ATEX. Cádiz." },
+      { title: "Vectra Instalaciones | Soluciones Integradas de Instalaciones Industriales" },
+      { name: "description", content: "Soluciones integradas de instalaciones industriales. Equipo técnico con más de 10 años de experiencia. Sede en El Puerto de Santa María (Cádiz)." },
+      { property: "og:title", content: "Vectra Instalaciones — Instalaciones Industriales" },
+      { property: "og:description", content: "Soluciones integradas de instalaciones industriales, mantenimiento y cuadros. Cádiz." },
       { property: "og:type", content: "website" },
     ],
   }),
