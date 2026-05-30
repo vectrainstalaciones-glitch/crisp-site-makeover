@@ -21,7 +21,7 @@ export function Header() {
             </span>
           </div>
         </a>
-        <nav className="hidden items-center gap-6 text-sm font-medium tracking-wide lg:flex">
+        <nav className="hidden items-center gap-5 text-sm font-medium tracking-wide md:flex">
           <a href="#inicio" className="text-white transition hover:text-[#00d2ff]">Inicio</a>
           <a href="#servicios" className="text-muted-foreground transition hover:text-white">Servicios</a>
           <a href="#trayectoria" className="text-muted-foreground transition hover:text-white">Empresa</a>
