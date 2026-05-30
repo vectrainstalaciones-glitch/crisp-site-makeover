@@ -1,5 +1,4 @@
-import { ShieldAlert, Layers, Network, ChevronRight } from "lucide-react";
-import iconComercial from "@/assets/icon-comercial.png";
+import { Layers, Network, ChevronRight } from "lucide-react";
 import iconIndustrial from "@/assets/icon-industrial.png";
 import iconMantenimiento from "@/assets/icon-mantenimiento.png";
 
@@ -13,14 +12,8 @@ type Service = {
 
 const services: Service[] = [
   {
-    title: "Soluciones Comerciales",
-    desc: "Soluciones integrales de energía para sectores comerciales: contrataciones y mantenimientos de gran envergadura.",
-    image: iconComercial,
-    color: "#00d2ff",
-  },
-  {
     title: "Infraestructura Industrial",
-    desc: "Infraestructura industrial pesada. Distribución de energía y potencia estructural adaptada al entorno.",
+    desc: "Infraestructura industrial pesada. Distribución de potencia estructural adaptada al entorno.",
     image: iconIndustrial,
     color: "#e60012",
   },
@@ -29,12 +22,6 @@ const services: Service[] = [
     desc: "Planes preventivos y correctivos para asegurar el suministro continuo, minimizando paradas y optimizando costes.",
     image: iconMantenimiento,
     color: "#c084fc",
-  },
-  {
-    title: "Instalaciones ATEX",
-    desc: "Montajes de máxima seguridad en ambientes con riesgo crítico de explosión o atmósferas inflamables.",
-    icon: <ShieldAlert className="h-8 w-8" />,
-    color: "#eab308",
   },
   {
     title: "Cuadros y Armarios",
@@ -59,7 +46,7 @@ export function Services() {
             Servicios de Alta Exigencia
           </h2>
           <p className="text-3xl font-black tracking-tight text-white sm:text-4xl">
-            Ingeniería y Operaciones Certificadas
+            Equipo Técnico y Operaciones Certificadas
           </p>
           <div className="mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-[#0046ff] to-[#e60012]" />
         </div>

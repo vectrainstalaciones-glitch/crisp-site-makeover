@@ -16,8 +16,8 @@ export function Trajectory() {
             <p className="mb-6 leading-relaxed text-muted-foreground">
               Constituimos formalmente <strong className="text-white">Vectra Instalaciones en 2026</strong> con el propósito de
               liderar la digitalización y optimización energética. Nacemos con un pilar inquebrantable:{" "}
-              <strong className="text-white">más de 10 años de experiencia acumulada</strong> por nuestro equipo de
-              ingenieros y operarios.
+              <strong className="text-white">más de 10 años de experiencia acumulada</strong> por nuestro equipo
+              técnico y operarios.
             </p>
             <div className="mb-6 flex flex-col gap-3 text-sm text-gray-300">
               <div className="flex items-center gap-3">
@@ -30,7 +30,7 @@ export function Trajectory() {
                 <div className="flex h-6 w-6 items-center justify-center rounded-full border border-[#0046ff]/40 bg-[#0046ff]/20 text-[#00d2ff]">
                   <Check className="h-3.5 w-3.5" />
                 </div>
-                <span>Ingeniería ágil adaptada a normativas de seguridad 2026.</span>
+                <span>Equipo técnico ágil adaptado a normativas de seguridad 2026.</span>
               </div>
             </div>
           </div>

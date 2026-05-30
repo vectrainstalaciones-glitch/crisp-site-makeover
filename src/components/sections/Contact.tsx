@@ -42,7 +42,7 @@ export function Contact() {
             Hablemos de su próximo proyecto
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-sm text-muted-foreground">
-            Remita sus requerimientos y nuestro departamento de ingeniería elaborará una propuesta a medida.
+            Remita sus requerimientos y nuestro equipo técnico elaborará una propuesta a medida.
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export function Contact() {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Email</p>
-                <p className="text-white">contacto@vectra-instalaciones.es</p>
+                <a href="mailto:vectrainstalaciones@gmail.com" className="text-white hover:text-[#00d2ff]">vectrainstalaciones@gmail.com</a>
               </div>
             </div>
           </div>

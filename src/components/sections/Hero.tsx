@@ -20,14 +20,14 @@ export function Hero() {
         <div className="max-w-3xl">
           <span className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-1.5 text-xs font-semibold text-gray-200 backdrop-blur-md">
             <span className="h-2 w-2 animate-pulse rounded-full bg-[#00d2ff]" />
-            Instalaciones Eléctricas Profesionales
+            Instalaciones Industriales Profesionales
           </span>
           <h1 className="mb-6 text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Soluciones integrales de energía <br />
-            <span className="text-gradient">comerciales e industriales</span>
+            Soluciones integradas de <br />
+            <span className="text-gradient">instalaciones industriales</span>
           </h1>
           <p className="mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Ingeniería, instalación y mantenimiento con la máxima precisión y seguridad. Atendemos la demanda de los
+            Equipo técnico, instalación y mantenimiento con la máxima precisión y seguridad. Atendemos la demanda de los
             clientes más exigentes desde nuestra sede en El Puerto de Santa María.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
