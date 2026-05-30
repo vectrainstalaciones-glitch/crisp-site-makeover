@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      budget_requests: {
+        Row: {
+          created_at: string
+          email: string
+          empresa: string | null
+          id: string
+          mensaje: string
+          nombre: string
+          status: string
+          telefono: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          empresa?: string | null
+          id?: string
+          mensaje: string
+          nombre: string
+          status?: string
+          telefono?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          empresa?: string | null
+          id?: string
+          mensaje?: string
+          nombre?: string
+          status?: string
+          telefono?: string | null
+        }
+        Relationships: []
+      }
       chat_conversations: {
         Row: {
           created_at: string
@@ -75,6 +108,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      page_visits: {
+        Row: {
+          created_at: string
+          id: string
+          path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
       }
       projects: {
         Row: {
