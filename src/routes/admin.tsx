@@ -83,11 +83,241 @@ function AdminDashboard() {
       </header>
 
       <main className="mx-auto max-w-6xl space-y-10 p-6">
+        <VisitsStats />
+        <BudgetRequestsAdmin />
         <ProjectsAdmin />
         <SponsorsAdmin />
         <ChatInbox />
       </main>
     </div>
+  );
+}
+
+/* ----------------- Visits stats ----------------- */
+type Bucket = "hour" | "day" | "week" | "month" | "year";
+
+function VisitsStats() {
+  const [bucket, setBucket] = useState<Bucket>("day");
+  const [rows, setRows] = useState<{ ts: Date }[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const ranges: Record<Bucket, number> = {
+      hour: 24 * 60 * 60 * 1000,
+      day: 30 * 24 * 60 * 60 * 1000,
+      week: 12 * 7 * 24 * 60 * 60 * 1000,
+      month: 12 * 31 * 24 * 60 * 60 * 1000,
+      year: 5 * 366 * 24 * 60 * 60 * 1000,
+    };
+    const since = new Date(Date.now() - ranges[bucket]).toISOString();
+    supabase
+      .from("page_visits")
+      .select("created_at")
+      .gte("created_at", since)
+      .order("created_at", { ascending: true })
+      .limit(10000)
+      .then(({ data }) => {
+        setRows((data ?? []).map((r: any) => ({ ts: new Date(r.created_at) })));
+        setLoading(false);
+      });
+  }, [bucket]);
+
+  const buckets = aggregate(rows.map((r) => r.ts), bucket);
+  const max = Math.max(1, ...buckets.map((b) => b.count));
+  const total = buckets.reduce((s, b) => s + b.count, 0);
+
+  const labels: Record<Bucket, string> = {
+    hour: "Por horas (últimas 24h)",
+    day: "Por días (últimos 30 días)",
+    week: "Por semanas (últimas 12)",
+    month: "Por meses (últimos 12)",
+    year: "Por años (últimos 5)",
+  };
+
+  return (
+    <section className="premium-card rounded-2xl p-6">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-xl font-bold text-white">Estadísticas de visitas</h2>
+          <p className="text-xs text-muted-foreground">{labels[bucket]} · Total: <span className="text-white">{total}</span></p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {(["hour", "day", "week", "month", "year"] as Bucket[]).map((b) => (
+            <button
+              key={b}
+              onClick={() => setBucket(b)}
+              className={`rounded-lg border px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition ${
+                bucket === b ? "border-[#00d2ff] bg-[#00d2ff]/10 text-[#00d2ff]" : "border-border text-muted-foreground hover:text-white"
+              }`}
+            >
+              {b === "hour" ? "Horas" : b === "day" ? "Días" : b === "week" ? "Semanas" : b === "month" ? "Meses" : "Años"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="flex h-40 items-center justify-center"><Loader2 className="h-5 w-5 animate-spin text-white" /></div>
+      ) : (
+        <div className="flex h-48 items-end gap-1 overflow-x-auto rounded-xl border border-border bg-background/40 p-3">
+          {buckets.map((b) => (
+            <div key={b.label} className="group flex flex-1 min-w-[18px] flex-col items-center justify-end gap-1">
+              <span className="text-[10px] text-white opacity-0 group-hover:opacity-100">{b.count}</span>
+              <div
+                className="w-full rounded-t bg-gradient-to-t from-[#0046ff] to-[#00d2ff]"
+                style={{ height: `${(b.count / max) * 100}%`, minHeight: b.count > 0 ? 2 : 0 }}
+                title={`${b.label}: ${b.count}`}
+              />
+              <span className="truncate text-[9px] text-muted-foreground">{b.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function aggregate(dates: Date[], bucket: Bucket): { label: string; count: number }[] {
+  const now = new Date();
+  const map = new Map<string, number>();
+  const keyOf = (d: Date) => {
+    if (bucket === "hour") return `${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}h`;
+    if (bucket === "day") return `${d.getDate()}/${d.getMonth() + 1}`;
+    if (bucket === "week") {
+      const oneJan = new Date(d.getFullYear(), 0, 1);
+      const wk = Math.ceil(((d.getTime() - oneJan.getTime()) / 86400000 + oneJan.getDay() + 1) / 7);
+      return `S${wk}`;
+    }
+    if (bucket === "month") return d.toLocaleDateString("es-ES", { month: "short", year: "2-digit" });
+    return String(d.getFullYear());
+  };
+
+  // pre-fill buckets so chart isn't empty
+  const slots: string[] = [];
+  if (bucket === "hour") {
+    for (let i = 23; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 3600 * 1000);
+      slots.push(keyOf(d));
+    }
+  } else if (bucket === "day") {
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 86400 * 1000);
+      slots.push(keyOf(d));
+    }
+  } else if (bucket === "week") {
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 7 * 86400 * 1000);
+      slots.push(keyOf(d));
+    }
+  } else if (bucket === "month") {
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      slots.push(keyOf(d));
+    }
+  } else {
+    for (let i = 4; i >= 0; i--) {
+      slots.push(String(now.getFullYear() - i));
+    }
+  }
+  slots.forEach((s) => map.set(s, 0));
+  dates.forEach((d) => {
+    const k = keyOf(d);
+    if (map.has(k)) map.set(k, (map.get(k) ?? 0) + 1);
+  });
+  return slots.map((label) => ({ label, count: map.get(label) ?? 0 }));
+}
+
+/* ----------------- Budget requests ----------------- */
+type BudgetRequest = {
+  id: string;
+  nombre: string;
+  empresa: string | null;
+  email: string;
+  telefono: string | null;
+  mensaje: string;
+  status: string;
+  created_at: string;
+};
+
+function BudgetRequestsAdmin() {
+  const [list, setList] = useState<BudgetRequest[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const load = () => {
+    setLoading(true);
+    supabase
+      .from("budget_requests")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(200)
+      .then(({ data }) => {
+        setList((data ?? []) as BudgetRequest[]);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const toggle = async (r: BudgetRequest) => {
+    const next = r.status === "done" ? "new" : "done";
+    await supabase.from("budget_requests").update({ status: next }).eq("id", r.id);
+    load();
+  };
+
+  const remove = async (id: string) => {
+    if (!confirm("¿Eliminar esta solicitud?")) return;
+    await supabase.from("budget_requests").delete().eq("id", id);
+    load();
+  };
+
+  const pending = list.filter((r) => r.status !== "done").length;
+
+  return (
+    <section className="premium-card rounded-2xl p-6">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-xl font-bold text-white">Solicitudes de presupuesto</h2>
+        <span className="rounded-full border border-[#00d2ff]/40 bg-[#00d2ff]/10 px-3 py-1 text-xs text-[#00d2ff]">
+          {pending} pendientes · {list.length} totales
+        </span>
+      </div>
+
+      {loading ? (
+        <Loader2 className="h-5 w-5 animate-spin text-white" />
+      ) : list.length === 0 ? (
+        <p className="text-sm text-muted-foreground">Todavía no se ha enviado ninguna solicitud.</p>
+      ) : (
+        <div className="space-y-3">
+          {list.map((r) => (
+            <div key={r.id} className={`rounded-xl border p-4 ${r.status === "done" ? "border-border bg-background/30 opacity-60" : "border-border bg-background/60"}`}>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-bold text-white">
+                    {r.nombre}{r.empresa ? <span className="text-muted-foreground"> · {r.empresa}</span> : null}
+                  </p>
+                  <p className="text-xs text-[#00d2ff]">
+                    <a href={`mailto:${r.email}`}>{r.email}</a>
+                    {r.telefono ? <> · <a href={`tel:${r.telefono}`}>{r.telefono}</a></> : null}
+                  </p>
+                  <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+                    {new Date(r.created_at).toLocaleString("es-ES")}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => toggle(r)} className="rounded-lg border border-border px-2.5 py-1 text-xs text-white hover:bg-card">
+                    {r.status === "done" ? "Reabrir" : "Marcar atendida"}
+                  </button>
+                  <button onClick={() => remove(r.id)} className="flex items-center gap-1 rounded-lg border border-red-500/30 px-2.5 py-1 text-xs text-red-400 hover:bg-red-500/10">
+                    <Trash2 className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+              <p className="mt-3 whitespace-pre-wrap rounded-lg bg-card/40 p-3 text-xs text-white/90">{r.mensaje}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 

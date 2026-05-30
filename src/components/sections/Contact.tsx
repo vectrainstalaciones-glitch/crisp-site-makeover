@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const PHONE = "34614001825";
 
@@ -16,9 +17,10 @@ const schema = z.object({
 export function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const parsed = schema.safeParse(Object.fromEntries(fd));
     if (!parsed.success) {
       toast.error("Revisa los datos del formulario");
@@ -26,12 +28,26 @@ export function Contact() {
     }
     setSubmitting(true);
     const { nombre, empresa, email, telefono, mensaje } = parsed.data;
+
+    // Registrar la solicitud en la base de datos
+    try {
+      await supabase.from("budget_requests").insert({
+        nombre,
+        empresa: empresa || null,
+        email,
+        telefono: telefono || null,
+        mensaje,
+      });
+    } catch {
+      // continúa aunque falle el log
+    }
+
     const text = `Hola Vectra, soy ${nombre}${empresa ? ` (${empresa})` : ""}.\nEmail: ${email}${telefono ? `\nTel: ${telefono}` : ""}\n\n${mensaje}`;
     const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setSubmitting(false);
-    (e.target as HTMLFormElement).reset();
-    toast.success("Te redirigimos a WhatsApp para enviarnos tu consulta.");
+    form.reset();
+    toast.success("Solicitud registrada. Te redirigimos a WhatsApp.");
   };
 
   return (

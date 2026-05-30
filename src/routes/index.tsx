@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
@@ -9,6 +10,7 @@ import { Sponsors } from "@/components/sections/Sponsors";
 import { Contact } from "@/components/sections/Contact";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,6 +26,24 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const KEY = "vectra_visit_logged";
+    if (sessionStorage.getItem(KEY)) return;
+    sessionStorage.setItem(KEY, "1");
+    let sid = localStorage.getItem("vectra_sid");
+    if (!sid) {
+      sid = crypto.randomUUID();
+      localStorage.setItem("vectra_sid", sid);
+    }
+    supabase.from("page_visits").insert({
+      path: window.location.pathname,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent.slice(0, 500),
+      session_id: sid,
+    }).then(() => {});
+  }, []);
+
   return (
     <div className="dark min-h-screen bg-background text-foreground">
       <Header />
