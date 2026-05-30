@@ -26,6 +26,24 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const KEY = "vectra_visit_logged";
+    if (sessionStorage.getItem(KEY)) return;
+    sessionStorage.setItem(KEY, "1");
+    let sid = localStorage.getItem("vectra_sid");
+    if (!sid) {
+      sid = crypto.randomUUID();
+      localStorage.setItem("vectra_sid", sid);
+    }
+    supabase.from("page_visits").insert({
+      path: window.location.pathname,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent.slice(0, 500),
+      session_id: sid,
+    }).then(() => {});
+  }, []);
+
   return (
     <div className="dark min-h-screen bg-background text-foreground">
       <Header />
