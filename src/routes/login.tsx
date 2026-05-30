@@ -63,16 +63,13 @@ function LoginPage() {
             disabled={loading}
             className="glow-button w-full rounded-xl bg-[#0046ff] py-3 text-sm font-bold uppercase tracking-wide text-white disabled:opacity-50"
           >
-            {loading ? "..." : mode === "signin" ? "Entrar" : "Crear cuenta"}
+            {loading ? "..." : "Entrar"}
           </button>
         </form>
 
-        <button
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-4 w-full text-center text-xs text-muted-foreground hover:text-white"
-        >
-          {mode === "signin" ? "¿No tienes cuenta? Crear" : "¿Ya tienes cuenta? Entrar"}
-        </button>
+        <p className="mt-4 text-center text-[11px] text-muted-foreground">
+          Acceso restringido. Para cualquier consulta, contacta por WhatsApp.
+        </p>
       </div>
     </div>
   );
