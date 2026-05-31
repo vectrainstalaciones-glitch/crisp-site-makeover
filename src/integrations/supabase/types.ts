@@ -17,33 +17,90 @@ export type Database = {
       budget_requests: {
         Row: {
           created_at: string
+          direccion: string | null
           email: string
           empresa: string | null
           id: string
+          lines: Json
           mensaje: string
           nombre: string
+          payload: Json
+          public_token: string | null
+          sent_at: string | null
           status: string
           telefono: string | null
+          tipo: string
+          total: number
         }
         Insert: {
           created_at?: string
+          direccion?: string | null
           email: string
           empresa?: string | null
           id?: string
+          lines?: Json
           mensaje: string
           nombre: string
+          payload?: Json
+          public_token?: string | null
+          sent_at?: string | null
           status?: string
           telefono?: string | null
+          tipo?: string
+          total?: number
         }
         Update: {
           created_at?: string
+          direccion?: string | null
           email?: string
           empresa?: string | null
           id?: string
+          lines?: Json
           mensaje?: string
           nombre?: string
+          payload?: Json
+          public_token?: string | null
+          sent_at?: string | null
           status?: string
           telefono?: string | null
+          tipo?: string
+          total?: number
+        }
+        Relationships: []
+      }
+      catalog_items: {
+        Row: {
+          activo: boolean
+          categoria: string
+          concepto: string
+          created_at: string
+          descripcion: string | null
+          id: string
+          precio_unitario: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean
+          categoria?: string
+          concepto: string
+          created_at?: string
+          descripcion?: string | null
+          id?: string
+          precio_unitario?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean
+          categoria?: string
+          concepto?: string
+          created_at?: string
+          descripcion?: string | null
+          id?: string
+          precio_unitario?: number
+          sort_order?: number
+          updated_at?: string
         }
         Relationships: []
       }
