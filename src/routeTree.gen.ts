@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PresupuestosPromotoraRouteImport } from './routes/presupuestos.promotora'
 
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
@@ -52,24 +53,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PresupuestosPromotoraRoute = PresupuestosPromotoraRouteImport.update({
+  id: '/promotora',
+  path: '/promotora',
+  getParentRoute: () => PresupuestosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRoute
+  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRoute
+  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +85,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRoute
+  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuestos/promotora'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuestos/promotora'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuestos/promotora'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,7 +128,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   EmpresaRoute: typeof EmpresaRoute
   LoginRoute: typeof LoginRoute
-  PresupuestosRoute: typeof PresupuestosRoute
+  PresupuestosRoute: typeof PresupuestosRouteWithChildren
   ProyectosRoute: typeof ProyectosRoute
   ServiciosRoute: typeof ServiciosRoute
 }
@@ -172,15 +184,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/presupuestos/promotora': {
+      id: '/presupuestos/promotora'
+      path: '/promotora'
+      fullPath: '/presupuestos/promotora'
+      preLoaderRoute: typeof PresupuestosPromotoraRouteImport
+      parentRoute: typeof PresupuestosRoute
+    }
   }
 }
+
+interface PresupuestosRouteChildren {
+  PresupuestosPromotoraRoute: typeof PresupuestosPromotoraRoute
+}
+
+const PresupuestosRouteChildren: PresupuestosRouteChildren = {
+  PresupuestosPromotoraRoute: PresupuestosPromotoraRoute,
+}
+
+const PresupuestosRouteWithChildren = PresupuestosRoute._addFileChildren(
+  PresupuestosRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   EmpresaRoute: EmpresaRoute,
   LoginRoute: LoginRoute,
-  PresupuestosRoute: PresupuestosRoute,
+  PresupuestosRoute: PresupuestosRouteWithChildren,
   ProyectosRoute: ProyectosRoute,
   ServiciosRoute: ServiciosRoute,
 }
