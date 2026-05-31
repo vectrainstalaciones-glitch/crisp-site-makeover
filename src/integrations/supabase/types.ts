@@ -297,6 +297,32 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_budget_by_token: {
+        Args: { _token: string }
+        Returns: {
+          created_at: string
+          direccion: string | null
+          email: string
+          empresa: string | null
+          id: string
+          lines: Json
+          mensaje: string
+          nombre: string
+          payload: Json
+          public_token: string | null
+          sent_at: string | null
+          status: string
+          telefono: string | null
+          tipo: string
+          total: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "budget_requests"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
