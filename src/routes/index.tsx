@@ -3,11 +3,9 @@ import { useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { Services } from "@/components/sections/Services";
 import { Trajectory } from "@/components/sections/Trajectory";
 import { Projects } from "@/components/sections/Projects";
 import { Sponsors } from "@/components/sections/Sponsors";
-import { Contact } from "@/components/sections/Contact";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
 import { supabase } from "@/integrations/supabase/client";
@@ -50,10 +48,8 @@ function Index() {
       <main>
         <Hero />
         <Sponsors />
-        <Services />
         <Trajectory />
         <Projects />
-        <Contact />
       </main>
       <Footer />
       <WhatsAppButton />
