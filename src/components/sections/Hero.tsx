@@ -1,5 +1,6 @@
 import logo from "@/assets/vectra-logo.png";
 import heroBg from "@/assets/hero-bg.jpg";
+import { Link } from "@tanstack/react-router";
 
 export function Hero() {
   return (
@@ -31,18 +32,18 @@ export function Hero() {
             clientes más exigentes desde nuestra sede en El Puerto de Santa María.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <a
-              href="#contacto"
+            <Link
+              to="/presupuestos"
               className="glow-button rounded-xl bg-[#0046ff] px-8 py-4 text-center text-sm font-bold uppercase tracking-wide text-white"
             >
               Solicitar Presupuesto
-            </a>
-            <a
-              href="#servicios"
+            </Link>
+            <Link
+              to="/servicios"
               className="rounded-xl border border-border bg-card/50 px-8 py-4 text-center text-sm font-bold uppercase tracking-wide text-gray-300 backdrop-blur-sm transition hover:border-gray-600 hover:text-white"
             >
               Nuestros Servicios
-            </a>
+            </Link>
           </div>
         </div>
       </div>
