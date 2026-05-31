@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PresupuestosViviendaRouteImport } from './routes/presupuestos.vivienda'
 import { Route as PresupuestosPromotoraRouteImport } from './routes/presupuestos.promotora'
 
 const ServiciosRoute = ServiciosRouteImport.update({
@@ -53,6 +54,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PresupuestosViviendaRoute = PresupuestosViviendaRouteImport.update({
+  id: '/vivienda',
+  path: '/vivienda',
+  getParentRoute: () => PresupuestosRoute,
+} as any)
 const PresupuestosPromotoraRoute = PresupuestosPromotoraRouteImport.update({
   id: '/promotora',
   path: '/promotora',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
+  '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
+  '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
+  '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/proyectos'
     | '/servicios'
     | '/presupuestos/promotora'
+    | '/presupuestos/vivienda'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/proyectos'
     | '/servicios'
     | '/presupuestos/promotora'
+    | '/presupuestos/vivienda'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/proyectos'
     | '/servicios'
     | '/presupuestos/promotora'
+    | '/presupuestos/vivienda'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/presupuestos/vivienda': {
+      id: '/presupuestos/vivienda'
+      path: '/vivienda'
+      fullPath: '/presupuestos/vivienda'
+      preLoaderRoute: typeof PresupuestosViviendaRouteImport
+      parentRoute: typeof PresupuestosRoute
+    }
     '/presupuestos/promotora': {
       id: '/presupuestos/promotora'
       path: '/promotora'
@@ -196,10 +215,12 @@ declare module '@tanstack/react-router' {
 
 interface PresupuestosRouteChildren {
   PresupuestosPromotoraRoute: typeof PresupuestosPromotoraRoute
+  PresupuestosViviendaRoute: typeof PresupuestosViviendaRoute
 }
 
 const PresupuestosRouteChildren: PresupuestosRouteChildren = {
   PresupuestosPromotoraRoute: PresupuestosPromotoraRoute,
+  PresupuestosViviendaRoute: PresupuestosViviendaRoute,
 }
 
 const PresupuestosRouteWithChildren = PresupuestosRoute._addFileChildren(
