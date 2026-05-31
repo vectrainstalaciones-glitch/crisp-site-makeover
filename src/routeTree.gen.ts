@@ -18,6 +18,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PresupuestosViviendaRouteImport } from './routes/presupuestos.vivienda'
 import { Route as PresupuestosPromotoraRouteImport } from './routes/presupuestos.promotora'
+import { Route as PresupuestoTokenRouteImport } from './routes/presupuesto.$token'
 
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
@@ -64,6 +65,11 @@ const PresupuestosPromotoraRoute = PresupuestosPromotoraRouteImport.update({
   path: '/promotora',
   getParentRoute: () => PresupuestosRoute,
 } as any)
+const PresupuestoTokenRoute = PresupuestoTokenRouteImport.update({
+  id: '/presupuesto/$token',
+  path: '/presupuesto/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuesto/$token': typeof PresupuestoTokenRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuesto/$token': typeof PresupuestoTokenRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/presupuesto/$token': typeof PresupuestoTokenRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuesto/$token'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuesto/$token'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/presupuesto/$token'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   PresupuestosRoute: typeof PresupuestosRouteWithChildren
   ProyectosRoute: typeof ProyectosRoute
   ServiciosRoute: typeof ServiciosRoute
+  PresupuestoTokenRoute: typeof PresupuestoTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -210,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PresupuestosPromotoraRouteImport
       parentRoute: typeof PresupuestosRoute
     }
+    '/presupuesto/$token': {
+      id: '/presupuesto/$token'
+      path: '/presupuesto/$token'
+      fullPath: '/presupuesto/$token'
+      preLoaderRoute: typeof PresupuestoTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -235,6 +255,7 @@ const rootRouteChildren: RootRouteChildren = {
   PresupuestosRoute: PresupuestosRouteWithChildren,
   ProyectosRoute: ProyectosRoute,
   ServiciosRoute: ServiciosRoute,
+  PresupuestoTokenRoute: PresupuestoTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
