@@ -18,7 +18,11 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PresupuestosViviendaRouteImport } from './routes/presupuestos.vivienda'
 import { Route as PresupuestosPromotoraRouteImport } from './routes/presupuestos.promotora'
+import { Route as PresupuestosGenericoRouteImport } from './routes/presupuestos.generico'
 import { Route as PresupuestoTokenRouteImport } from './routes/presupuesto.$token'
+import { Route as LegalPrivacidadRouteImport } from './routes/legal.privacidad'
+import { Route as LegalCookiesRouteImport } from './routes/legal.cookies'
+import { Route as LegalAvisoRouteImport } from './routes/legal.aviso'
 
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
@@ -65,9 +69,29 @@ const PresupuestosPromotoraRoute = PresupuestosPromotoraRouteImport.update({
   path: '/promotora',
   getParentRoute: () => PresupuestosRoute,
 } as any)
+const PresupuestosGenericoRoute = PresupuestosGenericoRouteImport.update({
+  id: '/generico',
+  path: '/generico',
+  getParentRoute: () => PresupuestosRoute,
+} as any)
 const PresupuestoTokenRoute = PresupuestoTokenRouteImport.update({
   id: '/presupuesto/$token',
   path: '/presupuesto/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacidadRoute = LegalPrivacidadRouteImport.update({
+  id: '/legal/privacidad',
+  path: '/legal/privacidad',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalCookiesRoute = LegalCookiesRouteImport.update({
+  id: '/legal/cookies',
+  path: '/legal/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalAvisoRoute = LegalAvisoRouteImport.update({
+  id: '/legal/aviso',
+  path: '/legal/aviso',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -79,7 +103,11 @@ export interface FileRoutesByFullPath {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/legal/aviso': typeof LegalAvisoRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/privacidad': typeof LegalPrivacidadRoute
   '/presupuesto/$token': typeof PresupuestoTokenRoute
+  '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -91,7 +119,11 @@ export interface FileRoutesByTo {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/legal/aviso': typeof LegalAvisoRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/privacidad': typeof LegalPrivacidadRoute
   '/presupuesto/$token': typeof PresupuestoTokenRoute
+  '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -104,7 +136,11 @@ export interface FileRoutesById {
   '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
+  '/legal/aviso': typeof LegalAvisoRoute
+  '/legal/cookies': typeof LegalCookiesRoute
+  '/legal/privacidad': typeof LegalPrivacidadRoute
   '/presupuesto/$token': typeof PresupuestoTokenRoute
+  '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
 }
@@ -118,7 +154,11 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/legal/aviso'
+    | '/legal/cookies'
+    | '/legal/privacidad'
     | '/presupuesto/$token'
+    | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   fileRoutesByTo: FileRoutesByTo
@@ -130,7 +170,11 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/legal/aviso'
+    | '/legal/cookies'
+    | '/legal/privacidad'
     | '/presupuesto/$token'
+    | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   id:
@@ -142,7 +186,11 @@ export interface FileRouteTypes {
     | '/presupuestos'
     | '/proyectos'
     | '/servicios'
+    | '/legal/aviso'
+    | '/legal/cookies'
+    | '/legal/privacidad'
     | '/presupuesto/$token'
+    | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
   fileRoutesById: FileRoutesById
@@ -155,6 +203,9 @@ export interface RootRouteChildren {
   PresupuestosRoute: typeof PresupuestosRouteWithChildren
   ProyectosRoute: typeof ProyectosRoute
   ServiciosRoute: typeof ServiciosRoute
+  LegalAvisoRoute: typeof LegalAvisoRoute
+  LegalCookiesRoute: typeof LegalCookiesRoute
+  LegalPrivacidadRoute: typeof LegalPrivacidadRoute
   PresupuestoTokenRoute: typeof PresupuestoTokenRoute
 }
 
@@ -223,6 +274,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PresupuestosPromotoraRouteImport
       parentRoute: typeof PresupuestosRoute
     }
+    '/presupuestos/generico': {
+      id: '/presupuestos/generico'
+      path: '/generico'
+      fullPath: '/presupuestos/generico'
+      preLoaderRoute: typeof PresupuestosGenericoRouteImport
+      parentRoute: typeof PresupuestosRoute
+    }
     '/presupuesto/$token': {
       id: '/presupuesto/$token'
       path: '/presupuesto/$token'
@@ -230,15 +288,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PresupuestoTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/privacidad': {
+      id: '/legal/privacidad'
+      path: '/legal/privacidad'
+      fullPath: '/legal/privacidad'
+      preLoaderRoute: typeof LegalPrivacidadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/cookies': {
+      id: '/legal/cookies'
+      path: '/legal/cookies'
+      fullPath: '/legal/cookies'
+      preLoaderRoute: typeof LegalCookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/aviso': {
+      id: '/legal/aviso'
+      path: '/legal/aviso'
+      fullPath: '/legal/aviso'
+      preLoaderRoute: typeof LegalAvisoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface PresupuestosRouteChildren {
+  PresupuestosGenericoRoute: typeof PresupuestosGenericoRoute
   PresupuestosPromotoraRoute: typeof PresupuestosPromotoraRoute
   PresupuestosViviendaRoute: typeof PresupuestosViviendaRoute
 }
 
 const PresupuestosRouteChildren: PresupuestosRouteChildren = {
+  PresupuestosGenericoRoute: PresupuestosGenericoRoute,
   PresupuestosPromotoraRoute: PresupuestosPromotoraRoute,
   PresupuestosViviendaRoute: PresupuestosViviendaRoute,
 }
@@ -255,18 +336,11 @@ const rootRouteChildren: RootRouteChildren = {
   PresupuestosRoute: PresupuestosRouteWithChildren,
   ProyectosRoute: ProyectosRoute,
   ServiciosRoute: ServiciosRoute,
+  LegalAvisoRoute: LegalAvisoRoute,
+  LegalCookiesRoute: LegalCookiesRoute,
+  LegalPrivacidadRoute: LegalPrivacidadRoute,
   PresupuestoTokenRoute: PresupuestoTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
