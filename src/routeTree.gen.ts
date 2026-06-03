@@ -11,11 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as ProyectosRouteImport } from './routes/proyectos'
-import { Route as PresupuestosRouteImport } from './routes/presupuestos'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmpresaRouteImport } from './routes/empresa'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PresupuestosIndexRouteImport } from './routes/presupuestos.index'
 import { Route as PresupuestosViviendaRouteImport } from './routes/presupuestos.vivienda'
 import { Route as PresupuestosPromotoraRouteImport } from './routes/presupuestos.promotora'
 import { Route as PresupuestosGenericoRouteImport } from './routes/presupuestos.generico'
@@ -32,11 +32,6 @@ const ServiciosRoute = ServiciosRouteImport.update({
 const ProyectosRoute = ProyectosRouteImport.update({
   id: '/proyectos',
   path: '/proyectos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PresupuestosRoute = PresupuestosRouteImport.update({
-  id: '/presupuestos',
-  path: '/presupuestos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -57,6 +52,11 @@ const AdminRoute = AdminRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresupuestosIndexRoute = PresupuestosIndexRouteImport.update({
+  id: '/presupuestos/',
+  path: '/presupuestos/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PresupuestosViviendaRoute = PresupuestosViviendaRouteImport.update({
@@ -100,7 +100,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/legal/aviso': typeof LegalAvisoRoute
@@ -110,13 +109,13 @@ export interface FileRoutesByFullPath {
   '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
+  '/presupuestos/': typeof PresupuestosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/legal/aviso': typeof LegalAvisoRoute
@@ -126,6 +125,7 @@ export interface FileRoutesByTo {
   '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
+  '/presupuestos': typeof PresupuestosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -133,7 +133,6 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/empresa': typeof EmpresaRoute
   '/login': typeof LoginRoute
-  '/presupuestos': typeof PresupuestosRouteWithChildren
   '/proyectos': typeof ProyectosRoute
   '/servicios': typeof ServiciosRoute
   '/legal/aviso': typeof LegalAvisoRoute
@@ -143,6 +142,7 @@ export interface FileRoutesById {
   '/presupuestos/generico': typeof PresupuestosGenericoRoute
   '/presupuestos/promotora': typeof PresupuestosPromotoraRoute
   '/presupuestos/vivienda': typeof PresupuestosViviendaRoute
+  '/presupuestos/': typeof PresupuestosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,7 +151,6 @@ export interface FileRouteTypes {
     | '/admin'
     | '/empresa'
     | '/login'
-    | '/presupuestos'
     | '/proyectos'
     | '/servicios'
     | '/legal/aviso'
@@ -161,13 +160,13 @@ export interface FileRouteTypes {
     | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
+    | '/presupuestos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
     | '/empresa'
     | '/login'
-    | '/presupuestos'
     | '/proyectos'
     | '/servicios'
     | '/legal/aviso'
@@ -177,13 +176,13 @@ export interface FileRouteTypes {
     | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
+    | '/presupuestos'
   id:
     | '__root__'
     | '/'
     | '/admin'
     | '/empresa'
     | '/login'
-    | '/presupuestos'
     | '/proyectos'
     | '/servicios'
     | '/legal/aviso'
@@ -193,6 +192,7 @@ export interface FileRouteTypes {
     | '/presupuestos/generico'
     | '/presupuestos/promotora'
     | '/presupuestos/vivienda'
+    | '/presupuestos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -200,13 +200,13 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   EmpresaRoute: typeof EmpresaRoute
   LoginRoute: typeof LoginRoute
-  PresupuestosRoute: typeof PresupuestosRouteWithChildren
   ProyectosRoute: typeof ProyectosRoute
   ServiciosRoute: typeof ServiciosRoute
   LegalAvisoRoute: typeof LegalAvisoRoute
   LegalCookiesRoute: typeof LegalCookiesRoute
   LegalPrivacidadRoute: typeof LegalPrivacidadRoute
   PresupuestoTokenRoute: typeof PresupuestoTokenRoute
+  PresupuestosIndexRoute: typeof PresupuestosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -223,13 +223,6 @@ declare module '@tanstack/react-router' {
       path: '/proyectos'
       fullPath: '/proyectos'
       preLoaderRoute: typeof ProyectosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/presupuestos': {
-      id: '/presupuestos'
-      path: '/presupuestos'
-      fullPath: '/presupuestos'
-      preLoaderRoute: typeof PresupuestosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -258,6 +251,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presupuestos/': {
+      id: '/presupuestos/'
+      path: '/presupuestos'
+      fullPath: '/presupuestos/'
+      preLoaderRoute: typeof PresupuestosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/presupuestos/vivienda': {
@@ -312,35 +312,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface PresupuestosRouteChildren {
-  PresupuestosGenericoRoute: typeof PresupuestosGenericoRoute
-  PresupuestosPromotoraRoute: typeof PresupuestosPromotoraRoute
-  PresupuestosViviendaRoute: typeof PresupuestosViviendaRoute
-}
-
-const PresupuestosRouteChildren: PresupuestosRouteChildren = {
-  PresupuestosGenericoRoute: PresupuestosGenericoRoute,
-  PresupuestosPromotoraRoute: PresupuestosPromotoraRoute,
-  PresupuestosViviendaRoute: PresupuestosViviendaRoute,
-}
-
-const PresupuestosRouteWithChildren = PresupuestosRoute._addFileChildren(
-  PresupuestosRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   EmpresaRoute: EmpresaRoute,
   LoginRoute: LoginRoute,
-  PresupuestosRoute: PresupuestosRouteWithChildren,
   ProyectosRoute: ProyectosRoute,
   ServiciosRoute: ServiciosRoute,
   LegalAvisoRoute: LegalAvisoRoute,
   LegalCookiesRoute: LegalCookiesRoute,
   LegalPrivacidadRoute: LegalPrivacidadRoute,
   PresupuestoTokenRoute: PresupuestoTokenRoute,
+  PresupuestosIndexRoute: PresupuestosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

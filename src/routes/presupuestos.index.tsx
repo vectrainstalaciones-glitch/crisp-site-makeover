@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Building2, Home, FileText, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/presupuestos")({
+export const Route = createFileRoute("/presupuestos/")({
   head: () => ({
     meta: [
       { title: "Solicitar presupuesto | Vectra Instalaciones" },
