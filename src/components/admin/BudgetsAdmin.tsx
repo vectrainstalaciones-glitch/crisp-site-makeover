@@ -107,10 +107,21 @@ export function CatalogAdmin() {
                   <td className="text-xs text-muted-foreground">{it.categoria}</td>
                   <td className="text-right text-white">{Number(it.precio_unitario).toFixed(2)} €</td>
                   <td className="text-xs text-muted-foreground">{it.sort_order}</td>
-                  <td>{it.activo ? "✓" : "—"}</td>
+                  <td>
+                    <button
+                      onClick={async () => {
+                        await supabase.from("catalog_items").update({ activo: !it.activo }).eq("id", it.id);
+                        load();
+                      }}
+                      className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${it.activo ? "bg-[#00d2ff]/20 text-[#00d2ff]" : "bg-muted text-muted-foreground"}`}
+                      title={it.activo ? "Visible para clientes — clic para ocultar" : "Oculto — clic para mostrar"}
+                    >
+                      {it.activo ? "Visible" : "Oculto"}
+                    </button>
+                  </td>
                   <td className="text-right">
-                    <button onClick={() => setEditing(it)} className="mr-1 rounded p-1 text-[#00d2ff] hover:bg-card"><Edit2 className="h-3 w-3" /></button>
-                    <button onClick={() => remove(it.id)} className="rounded p-1 text-red-400 hover:bg-red-500/10"><Trash2 className="h-3 w-3" /></button>
+                    <button onClick={() => setEditing(it)} className="mr-1 rounded p-1 text-[#00d2ff] hover:bg-card" title="Editar"><Edit2 className="h-3 w-3" /></button>
+                    <button onClick={() => remove(it.id)} className="rounded p-1 text-red-400 hover:bg-red-500/10" title="Eliminar"><Trash2 className="h-3 w-3" /></button>
                   </td>
                 </tr>
               ))}
