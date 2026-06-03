@@ -60,19 +60,19 @@ const PresupuestosIndexRoute = PresupuestosIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PresupuestosViviendaRoute = PresupuestosViviendaRouteImport.update({
-  id: '/vivienda',
-  path: '/vivienda',
-  getParentRoute: () => PresupuestosRoute,
+  id: '/presupuestos/vivienda',
+  path: '/presupuestos/vivienda',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PresupuestosPromotoraRoute = PresupuestosPromotoraRouteImport.update({
-  id: '/promotora',
-  path: '/promotora',
-  getParentRoute: () => PresupuestosRoute,
+  id: '/presupuestos/promotora',
+  path: '/presupuestos/promotora',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PresupuestosGenericoRoute = PresupuestosGenericoRouteImport.update({
-  id: '/generico',
-  path: '/generico',
-  getParentRoute: () => PresupuestosRoute,
+  id: '/presupuestos/generico',
+  path: '/presupuestos/generico',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PresupuestoTokenRoute = PresupuestoTokenRouteImport.update({
   id: '/presupuesto/$token',
@@ -206,6 +206,9 @@ export interface RootRouteChildren {
   LegalCookiesRoute: typeof LegalCookiesRoute
   LegalPrivacidadRoute: typeof LegalPrivacidadRoute
   PresupuestoTokenRoute: typeof PresupuestoTokenRoute
+  PresupuestosGenericoRoute: typeof PresupuestosGenericoRoute
+  PresupuestosPromotoraRoute: typeof PresupuestosPromotoraRoute
+  PresupuestosViviendaRoute: typeof PresupuestosViviendaRoute
   PresupuestosIndexRoute: typeof PresupuestosIndexRoute
 }
 
@@ -262,24 +265,24 @@ declare module '@tanstack/react-router' {
     }
     '/presupuestos/vivienda': {
       id: '/presupuestos/vivienda'
-      path: '/vivienda'
+      path: '/presupuestos/vivienda'
       fullPath: '/presupuestos/vivienda'
       preLoaderRoute: typeof PresupuestosViviendaRouteImport
-      parentRoute: typeof PresupuestosRoute
+      parentRoute: typeof rootRouteImport
     }
     '/presupuestos/promotora': {
       id: '/presupuestos/promotora'
-      path: '/promotora'
+      path: '/presupuestos/promotora'
       fullPath: '/presupuestos/promotora'
       preLoaderRoute: typeof PresupuestosPromotoraRouteImport
-      parentRoute: typeof PresupuestosRoute
+      parentRoute: typeof rootRouteImport
     }
     '/presupuestos/generico': {
       id: '/presupuestos/generico'
-      path: '/generico'
+      path: '/presupuestos/generico'
       fullPath: '/presupuestos/generico'
       preLoaderRoute: typeof PresupuestosGenericoRouteImport
-      parentRoute: typeof PresupuestosRoute
+      parentRoute: typeof rootRouteImport
     }
     '/presupuesto/$token': {
       id: '/presupuesto/$token'
@@ -323,6 +326,9 @@ const rootRouteChildren: RootRouteChildren = {
   LegalCookiesRoute: LegalCookiesRoute,
   LegalPrivacidadRoute: LegalPrivacidadRoute,
   PresupuestoTokenRoute: PresupuestoTokenRoute,
+  PresupuestosGenericoRoute: PresupuestosGenericoRoute,
+  PresupuestosPromotoraRoute: PresupuestosPromotoraRoute,
+  PresupuestosViviendaRoute: PresupuestosViviendaRoute,
   PresupuestosIndexRoute: PresupuestosIndexRoute,
 }
 export const routeTree = rootRouteImport
