@@ -85,7 +85,8 @@ function AdminDashboard() {
 
       <main className="mx-auto max-w-6xl space-y-10 p-6">
         <VisitsStats />
-        <BudgetRequestsAdmin />
+        <BudgetRequestsAdminV2 />
+        <CatalogAdmin />
         <ProjectsAdmin />
         <SponsorsAdmin />
         <ChatInbox />
