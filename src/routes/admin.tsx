@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/useAuth";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, LogOut, ArrowLeft } from "lucide-react";
+import { BudgetRequestsAdminV2, CatalogAdmin } from "@/components/admin/BudgetsAdmin";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Panel | Vectra" }, { name: "robots", content: "noindex" }] }),
