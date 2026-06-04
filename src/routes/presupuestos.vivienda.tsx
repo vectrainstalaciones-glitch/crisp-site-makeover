@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Plus, Trash2, X } from "lucide-react";
+import { BudgetAttachments, type Attachment } from "@/components/BudgetAttachments";
 
 type CatalogItem = { id: string; concepto: string; descripcion: string | null; categoria: string; sort_order: number };
 type RoomItem = { catalog_id: string; concepto: string; cantidad: number };
