@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/useAuth";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, LogOut, ArrowLeft } from "lucide-react";
 import { BudgetRequestsAdminV2, CatalogAdmin } from "@/components/admin/BudgetsAdmin";
+import { ServicesAdmin, TrajectoryAdmin } from "@/components/admin/ContentAdmin";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Panel | Vectra" }, { name: "robots", content: "noindex" }] }),
@@ -88,6 +89,8 @@ function AdminDashboard() {
         <BudgetRequestsAdminV2 />
         <CatalogAdmin />
         <ProjectsAdmin />
+        <ServicesAdmin />
+        <TrajectoryAdmin />
         <SponsorsAdmin />
         <ChatInbox />
       </main>
