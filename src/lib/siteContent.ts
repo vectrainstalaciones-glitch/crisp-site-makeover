@@ -23,6 +23,6 @@ export function useSiteContent<T>(key: string, fallback: T) {
 export async function saveSiteContent(key: string, value: unknown) {
   const { error } = await supabase
     .from("site_content")
-    .upsert({ key, value, updated_at: new Date().toISOString() }, { onConflict: "key" });
+    .upsert({ key, value: value as any, updated_at: new Date().toISOString() }, { onConflict: "key" });
   if (error) throw error;
 }
