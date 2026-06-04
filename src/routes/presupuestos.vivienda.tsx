@@ -35,6 +35,7 @@ function Page() {
   const [catalog, setCatalog] = useState<CatalogItem[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   useEffect(() => {
     supabase
