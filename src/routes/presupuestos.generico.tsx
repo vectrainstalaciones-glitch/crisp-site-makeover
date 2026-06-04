@@ -27,6 +27,7 @@ export const Route = createFileRoute("/presupuestos/generico")({
 function Page() {
   const nav = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +39,7 @@ function Page() {
     const { error } = await supabase.from("budget_requests").insert({
       nombre, email, telefono: telefono || null, mensaje,
       tipo: "generico",
+      payload: { attachments } as any,
     });
     setSubmitting(false);
     if (error) return toast.error(error.message);
