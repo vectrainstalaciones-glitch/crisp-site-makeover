@@ -65,7 +65,7 @@ function Page() {
         nombre, empresa: empresa || null, email, telefono: telefono || null,
         mensaje: detalle,
         tipo: "promotora",
-        payload: { tipo_proyecto, cantidad: cantidad || null, ubicacion: ubicacion || null } as any,
+        payload: { tipo_proyecto, cantidad: cantidad || null, ubicacion: ubicacion || null, attachments } as any,
       });
     } catch { /* ignore */ }
 
