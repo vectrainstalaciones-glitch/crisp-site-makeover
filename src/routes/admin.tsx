@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/useAuth";
 import { toast } from "sonner";
 import { Loader2, Plus, Trash2, LogOut, ArrowLeft } from "lucide-react";
 import { BudgetRequestsAdminV2, CatalogAdmin } from "@/components/admin/BudgetsAdmin";
+import { ServicesAdmin, TrajectoryAdmin } from "@/components/admin/ContentAdmin";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Panel | Vectra" }, { name: "robots", content: "noindex" }] }),
@@ -88,6 +89,8 @@ function AdminDashboard() {
         <BudgetRequestsAdminV2 />
         <CatalogAdmin />
         <ProjectsAdmin />
+        <ServicesAdmin />
+        <TrajectoryAdmin />
         <SponsorsAdmin />
         <ChatInbox />
       </main>
@@ -413,18 +416,86 @@ function ProjectsAdmin() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {list.map((p) => (
-          <div key={p.id} className="rounded-xl border border-border bg-background/50 p-4">
-            {p.image_url && <img src={p.image_url} alt={p.title} className="mb-3 aspect-video w-full rounded-lg object-cover" />}
-            <h3 className="text-sm font-bold text-white">{p.title}</h3>
-            {p.location && <p className="text-xs text-[#00d2ff]">{p.location}</p>}
-            {p.description && <p className="mt-1 text-xs text-muted-foreground">{p.description}</p>}
-            <button onClick={() => remove(p.id)} className="mt-3 flex items-center gap-1 text-xs text-red-400 hover:text-red-300">
-              <Trash2 className="h-3 w-3" /> Eliminar
-            </button>
-          </div>
+          <ProjectCard key={p.id} project={p} onChange={load} />
         ))}
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project, onChange }: { project: Project; onChange: () => void }) {
+  const [editing, setEditing] = useState(false);
+  const [form, setForm] = useState({ title: project.title, description: project.description ?? "", location: project.location ?? "" });
+  const [file, setFile] = useState<File | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const save = async () => {
+    setBusy(true);
+    try {
+      let image_url = project.image_url;
+      if (file) {
+        const path = `projects/${Date.now()}-${file.name.replace(/[^a-z0-9.\-_]/gi, "_")}`;
+        const { error } = await supabase.storage.from("site-media").upload(path, file);
+        if (error) throw error;
+        image_url = supabase.storage.from("site-media").getPublicUrl(path).data.publicUrl;
+      }
+      const { error } = await supabase.from("projects").update({
+        title: form.title,
+        description: form.description || null,
+        location: form.location || null,
+        image_url,
+      }).eq("id", project.id);
+      if (error) throw error;
+      toast.success("Proyecto actualizado");
+      setEditing(false);
+      setFile(null);
+      onChange();
+    } catch (e: any) {
+      toast.error(e.message);
+    } finally { setBusy(false); }
+  };
+
+  const remove = async () => {
+    if (!confirm("¿Eliminar este proyecto?")) return;
+    await supabase.from("projects").delete().eq("id", project.id);
+    onChange();
+  };
+
+  const removeImage = async () => {
+    if (!confirm("¿Quitar la imagen de este proyecto?")) return;
+    await supabase.from("projects").update({ image_url: null }).eq("id", project.id);
+    onChange();
+  };
+
+  if (editing) {
+    return (
+      <div className="rounded-xl border border-[#00d2ff]/40 bg-background/50 p-4 space-y-2">
+        <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" placeholder="Título" />
+        <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" placeholder="Ubicación" />
+        <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm" placeholder="Descripción" />
+        <input type="file" accept="image/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} className="text-xs" />
+        <div className="flex gap-2">
+          <button onClick={save} disabled={busy} className="rounded-lg bg-[#0046ff] px-3 py-1.5 text-xs font-bold text-white">{busy ? "Guardando..." : "Guardar"}</button>
+          <button onClick={() => { setEditing(false); setFile(null); }} className="rounded-lg border border-border px-3 py-1.5 text-xs text-white">Cancelar</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-background/50 p-4">
+      {project.image_url && <img src={project.image_url} alt={project.title} className="mb-3 aspect-video w-full rounded-lg object-cover" />}
+      <h3 className="text-sm font-bold text-white">{project.title}</h3>
+      {project.location && <p className="text-xs text-[#00d2ff]">{project.location}</p>}
+      {project.description && <p className="mt-1 text-xs text-muted-foreground">{project.description}</p>}
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button onClick={() => setEditing(true)} className="rounded-lg border border-border px-2 py-1 text-xs text-white hover:bg-card">Editar</button>
+        {project.image_url && <button onClick={removeImage} className="rounded-lg border border-border px-2 py-1 text-xs text-white hover:bg-card">Quitar imagen</button>}
+        <button onClick={remove} className="flex items-center gap-1 rounded-lg border border-red-500/30 px-2 py-1 text-xs text-red-400 hover:bg-red-500/10">
+          <Trash2 className="h-3 w-3" /> Eliminar
+        </button>
+      </div>
+    </div>
   );
 }
 
