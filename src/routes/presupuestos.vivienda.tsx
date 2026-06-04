@@ -88,7 +88,7 @@ function Page() {
       mensaje: `Solicitud presupuesto online (${rooms.length} estancias, ${totalItems} elementos)`,
       tipo: "vivienda",
       status: "pendiente_revision",
-      payload: { rooms } as any,
+      payload: { rooms, attachments } as any,
     });
     setSubmitting(false);
     if (error) return toast.error(error.message);
