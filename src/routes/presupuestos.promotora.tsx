@@ -43,6 +43,7 @@ export const Route = createFileRoute("/presupuestos/promotora")({
 
 function Page() {
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
