@@ -125,6 +125,9 @@ function Page() {
               />
             </div>
 
+            <BudgetAttachments value={attachments} onChange={setAttachments} folder="promotora" />
+
+
             <button
               type="submit" disabled={submitting}
               className="glow-button w-full rounded-xl bg-[#0046ff] py-4 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-[#0035cc]"
