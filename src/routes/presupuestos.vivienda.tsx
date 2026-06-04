@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Plus, Trash2, X } from "lucide-react";
+import { BudgetAttachments, type Attachment } from "@/components/BudgetAttachments";
 
 type CatalogItem = { id: string; concepto: string; descripcion: string | null; categoria: string; sort_order: number };
 type RoomItem = { catalog_id: string; concepto: string; cantidad: number };
@@ -34,6 +35,7 @@ function Page() {
   const [catalog, setCatalog] = useState<CatalogItem[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   useEffect(() => {
     supabase
@@ -86,7 +88,7 @@ function Page() {
       mensaje: `Solicitud presupuesto online (${rooms.length} estancias, ${totalItems} elementos)`,
       tipo: "vivienda",
       status: "pendiente_revision",
-      payload: { rooms } as any,
+      payload: { rooms, attachments } as any,
     });
     setSubmitting(false);
     if (error) return toast.error(error.message);
@@ -126,6 +128,9 @@ function Page() {
                 <Field label="Email" name="email" type="email" required />
                 <Field label="Teléfono" name="telefono" type="tel" required />
                 <Field label="Dirección de la vivienda" name="direccion" required />
+              </div>
+              <div className="mt-6">
+                <BudgetAttachments value={attachments} onChange={setAttachments} folder="vivienda" />
               </div>
             </div>
 

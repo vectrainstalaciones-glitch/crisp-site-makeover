@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft } from "lucide-react";
+import { BudgetAttachments, type Attachment } from "@/components/BudgetAttachments";
 
 const PHONE = "34614001825";
 
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/presupuestos/promotora")({
 
 function Page() {
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,7 +65,7 @@ function Page() {
         nombre, empresa: empresa || null, email, telefono: telefono || null,
         mensaje: detalle,
         tipo: "promotora",
-        payload: { tipo_proyecto, cantidad: cantidad || null, ubicacion: ubicacion || null } as any,
+        payload: { tipo_proyecto, cantidad: cantidad || null, ubicacion: ubicacion || null, attachments } as any,
       });
     } catch { /* ignore */ }
 
@@ -122,6 +124,9 @@ function Page() {
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-white outline-none transition-colors focus:border-[#00d2ff]"
               />
             </div>
+
+            <BudgetAttachments value={attachments} onChange={setAttachments} folder="promotora" />
+
 
             <button
               type="submit" disabled={submitting}

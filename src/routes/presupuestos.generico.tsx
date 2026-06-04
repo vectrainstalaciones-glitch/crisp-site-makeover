@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft } from "lucide-react";
+import { BudgetAttachments, type Attachment } from "@/components/BudgetAttachments";
 
 const schema = z.object({
   nombre: z.string().trim().min(2).max(100),
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/presupuestos/generico")({
 function Page() {
   const nav = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [attachments, setAttachments] = useState<Attachment[]>([]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +39,7 @@ function Page() {
     const { error } = await supabase.from("budget_requests").insert({
       nombre, email, telefono: telefono || null, mensaje,
       tipo: "generico",
+      payload: { attachments } as any,
     });
     setSubmitting(false);
     if (error) return toast.error(error.message);
@@ -71,6 +74,7 @@ function Page() {
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-white outline-none transition-colors focus:border-[#00d2ff]"
               />
             </div>
+            <BudgetAttachments value={attachments} onChange={setAttachments} folder="generico" />
             <button
               type="submit" disabled={submitting}
               className="glow-button w-full rounded-xl bg-[#0046ff] py-4 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-[#0035cc]"
