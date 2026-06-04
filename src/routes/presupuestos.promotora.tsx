@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft } from "lucide-react";
+import { BudgetAttachments, type Attachment } from "@/components/BudgetAttachments";
 
 const PHONE = "34614001825";
 
