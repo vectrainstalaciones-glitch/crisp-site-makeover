@@ -129,6 +129,9 @@ function Page() {
                 <Field label="Teléfono" name="telefono" type="tel" required />
                 <Field label="Dirección de la vivienda" name="direccion" required />
               </div>
+              <div className="mt-6">
+                <BudgetAttachments value={attachments} onChange={setAttachments} folder="vivienda" />
+              </div>
             </div>
 
             {/* Estancias */}
