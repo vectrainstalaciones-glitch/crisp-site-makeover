@@ -21,7 +21,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="group flex flex-shrink-0 items-center gap-3">
           <img
             src={logo}
@@ -37,7 +37,7 @@ export function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-5 text-sm font-medium tracking-wide md:flex">
+        <nav className="hidden items-center gap-4 text-sm font-medium tracking-wide xl:flex">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -45,14 +45,14 @@ export function Header() {
               activeOptions={{ exact: true }}
               activeProps={{ className: "text-[#00d2ff]" }}
               inactiveProps={{ className: "text-muted-foreground hover:text-white" }}
-              className="transition-colors duration-200"
+             className="whitespace-nowrap transition-colors duration-200"
             >
               {n.label}
             </Link>
           ))}
           <Link
             to="/presupuestos"
-            className="rounded-lg border border-[#0046ff] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:bg-[#0046ff] hover:shadow-[0_0_18px_rgba(0,70,255,0.55)]"
+            className="whitespace-nowrap rounded-lg border border-[#0046ff] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:bg-[#0046ff] hover:shadow-[0_0_18px_rgba(0,70,255,0.55)]"
           >
             Solicitar Presupuesto
           </Link>
@@ -62,7 +62,7 @@ export function Header() {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             aria-label="Abrir menú"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border text-white transition-colors hover:border-[#00d2ff] hover:text-[#00d2ff] md:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border text-white transition-colors hover:border-[#00d2ff] hover:text-[#00d2ff] xl:hidden"
           >
             <Menu className="h-5 w-5" />
           </SheetTrigger>

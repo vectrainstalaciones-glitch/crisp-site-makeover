@@ -168,12 +168,12 @@ function Page() {
                     const item = room.items.find((i) => i.catalog_id === c.id);
                     const qty = item?.cantidad ?? 0;
                     return (
-                      <div key={c.id} className="flex flex-col gap-3 rounded-lg border border-border/60 bg-background/40 p-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
+                      <div key={c.id} className="flex max-w-full flex-col gap-3 overflow-hidden rounded-lg border border-border/60 bg-background/40 p-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm leading-snug text-white">{c.concepto}</p>
-                          {c.descripcion && <p className="text-[11px] leading-relaxed text-muted-foreground">{c.descripcion}</p>}
+                          <p className="break-words text-sm leading-snug text-white">{c.concepto}</p>
+                          {c.descripcion && <p className="break-words text-[11px] leading-relaxed text-muted-foreground">{c.descripcion}</p>}
                         </div>
-                        <div className="flex w-full items-center justify-end gap-2 self-stretch lg:w-auto lg:self-auto lg:pl-4">
+                        <div className="flex w-full max-w-full items-center justify-end gap-2 self-stretch lg:w-auto lg:self-auto lg:pl-4">
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, Math.max(0, qty - 1))}
                             className="h-8 w-8 shrink-0 rounded-md border border-border text-white hover:bg-card">−</button>
                           <input
