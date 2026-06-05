@@ -98,12 +98,12 @@ function Page() {
 
   return (
     <SiteLayout>
-      <section className="py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <section className="max-w-full overflow-x-hidden py-16">
+        <div className="mx-auto max-w-5xl overflow-x-hidden px-4 sm:px-6">
           <Link to="/presupuestos" className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground hover:text-white">
             <ArrowLeft className="h-3 w-3" /> Volver
           </Link>
-          <h1 className="mb-3 text-3xl font-black text-white sm:text-4xl">Presupuesto online vivienda</h1>
+          <h1 className="mb-3 max-w-full text-2xl font-black text-white sm:text-3xl lg:text-4xl">Presupuesto online vivienda</h1>
           <div className="mb-10 space-y-3 rounded-2xl border border-border bg-card/30 p-5 text-sm leading-relaxed text-muted-foreground">
             <p>
               <strong className="text-white">Cómo funciona:</strong> primero haz un recuento de las
@@ -123,7 +123,7 @@ function Page() {
             {/* Datos del cliente */}
             <div className="premium-card rounded-2xl p-6">
               <h2 className="mb-4 text-lg font-bold text-white">1. Tus datos</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-2">
                 <Field label="Nombre completo" name="nombre" required />
                 <Field label="Email" name="email" type="email" required />
                 <Field label="Teléfono" name="telefono" type="tel" required />
@@ -168,21 +168,21 @@ function Page() {
                     const item = room.items.find((i) => i.catalog_id === c.id);
                     const qty = item?.cantidad ?? 0;
                     return (
-                      <div key={c.id} className="flex flex-col gap-2 rounded-lg border border-border/60 bg-background/40 p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                      <div key={c.id} className="flex max-w-full flex-col gap-3 overflow-hidden rounded-lg border border-border/60 bg-background/40 p-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm text-white sm:truncate">{c.concepto}</p>
-                          {c.descripcion && <p className="text-[11px] text-muted-foreground sm:truncate">{c.descripcion}</p>}
+                          <p className="break-words text-sm leading-snug text-white">{c.concepto}</p>
+                          {c.descripcion && <p className="break-words text-[11px] leading-relaxed text-muted-foreground">{c.descripcion}</p>}
                         </div>
-                        <div className="flex items-center gap-2 self-end sm:self-auto">
+                        <div className="flex w-full max-w-full items-center justify-end gap-2 self-stretch lg:w-auto lg:self-auto lg:pl-4">
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, Math.max(0, qty - 1))}
-                            className="h-7 w-7 rounded-md border border-border text-white hover:bg-card">−</button>
+                            className="h-8 w-8 shrink-0 rounded-md border border-border text-white hover:bg-card">−</button>
                           <input
                             type="number" min={0} value={qty}
                             onChange={(e) => setItemQty(room.id, c.id, c.concepto, Math.max(0, parseInt(e.target.value || "0", 10)))}
-                            className="w-14 rounded-md border border-border bg-background px-2 py-1 text-center text-sm text-white"
+                            className="h-8 w-16 min-w-0 rounded-md border border-border bg-background px-2 py-1 text-center text-sm text-white"
                           />
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, qty + 1)}
-                            className="h-7 w-7 rounded-md border border-border text-white hover:bg-card">+</button>
+                            className="h-8 w-8 shrink-0 rounded-md border border-border text-white hover:bg-card">+</button>
                         </div>
                       </div>
                     );
@@ -191,13 +191,13 @@ function Page() {
               </div>
             ))}
 
-            <div className="flex items-center justify-between rounded-2xl border border-border bg-card/40 p-5">
+             <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card/40 p-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-sm text-white">{rooms.length} estancia(s) · {totalItems} elemento(s)</p>
                 <p className="text-xs text-muted-foreground">Los precios los aplicará nuestro equipo y te llegarán por email.</p>
               </div>
               <button type="submit" disabled={submitting}
-                className="glow-button rounded-xl bg-[#0046ff] px-8 py-3 text-sm font-bold uppercase tracking-wide text-white">
+                className="glow-button w-full rounded-xl bg-[#0046ff] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white lg:w-auto">
                 Enviar solicitud
               </button>
             </div>
