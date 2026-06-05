@@ -5,7 +5,7 @@ import { ChatWidget } from "@/components/ChatWidget";
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="dark min-h-screen bg-background text-foreground">
+    <div className="dark min-h-screen max-w-full overflow-x-hidden bg-background text-foreground">
       <Header />
       <main>{children}</main>
       <Footer />

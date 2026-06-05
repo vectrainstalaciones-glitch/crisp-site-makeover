@@ -98,12 +98,12 @@ function Page() {
 
   return (
     <SiteLayout>
-      <section className="py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      <section className="max-w-full overflow-x-hidden py-16">
+        <div className="mx-auto max-w-5xl overflow-x-hidden px-4 sm:px-6">
           <Link to="/presupuestos" className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground hover:text-white">
             <ArrowLeft className="h-3 w-3" /> Volver
           </Link>
-          <h1 className="mb-3 text-3xl font-black text-white sm:text-4xl">Presupuesto online vivienda</h1>
+          <h1 className="mb-3 max-w-full text-2xl font-black text-white sm:text-3xl lg:text-4xl">Presupuesto online vivienda</h1>
           <div className="mb-10 space-y-3 rounded-2xl border border-border bg-card/30 p-5 text-sm leading-relaxed text-muted-foreground">
             <p>
               <strong className="text-white">Cómo funciona:</strong> primero haz un recuento de las
@@ -123,7 +123,7 @@ function Page() {
             {/* Datos del cliente */}
             <div className="premium-card rounded-2xl p-6">
               <h2 className="mb-4 text-lg font-bold text-white">1. Tus datos</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-2">
                 <Field label="Nombre completo" name="nombre" required />
                 <Field label="Email" name="email" type="email" required />
                 <Field label="Teléfono" name="telefono" type="tel" required />
@@ -191,13 +191,13 @@ function Page() {
               </div>
             ))}
 
-            <div className="flex items-center justify-between rounded-2xl border border-border bg-card/40 p-5">
+             <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card/40 p-5 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="text-sm text-white">{rooms.length} estancia(s) · {totalItems} elemento(s)</p>
                 <p className="text-xs text-muted-foreground">Los precios los aplicará nuestro equipo y te llegarán por email.</p>
               </div>
               <button type="submit" disabled={submitting}
-                className="glow-button rounded-xl bg-[#0046ff] px-8 py-3 text-sm font-bold uppercase tracking-wide text-white">
+                className="glow-button w-full rounded-xl bg-[#0046ff] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white lg:w-auto">
                 Enviar solicitud
               </button>
             </div>
