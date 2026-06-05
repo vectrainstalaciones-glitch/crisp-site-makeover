@@ -168,12 +168,12 @@ function Page() {
                     const item = room.items.find((i) => i.catalog_id === c.id);
                     const qty = item?.cantidad ?? 0;
                     return (
-                      <div key={c.id} className="flex items-center justify-between gap-3 rounded-lg border border-border/60 bg-background/40 p-3">
+                      <div key={c.id} className="flex flex-col gap-2 rounded-lg border border-border/60 bg-background/40 p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm text-white">{c.concepto}</p>
-                          {c.descripcion && <p className="truncate text-[11px] text-muted-foreground">{c.descripcion}</p>}
+                          <p className="text-sm text-white sm:truncate">{c.concepto}</p>
+                          {c.descripcion && <p className="text-[11px] text-muted-foreground sm:truncate">{c.descripcion}</p>}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 self-end sm:self-auto">
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, Math.max(0, qty - 1))}
                             className="h-7 w-7 rounded-md border border-border text-white hover:bg-card">−</button>
                           <input
