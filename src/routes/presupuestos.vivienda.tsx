@@ -168,21 +168,21 @@ function Page() {
                     const item = room.items.find((i) => i.catalog_id === c.id);
                     const qty = item?.cantidad ?? 0;
                     return (
-                      <div key={c.id} className="flex flex-col gap-2 rounded-lg border border-border/60 bg-background/40 p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                      <div key={c.id} className="flex flex-col gap-3 rounded-lg border border-border/60 bg-background/40 p-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm text-white sm:truncate">{c.concepto}</p>
-                          {c.descripcion && <p className="text-[11px] text-muted-foreground sm:truncate">{c.descripcion}</p>}
+                          <p className="text-sm leading-snug text-white">{c.concepto}</p>
+                          {c.descripcion && <p className="text-[11px] leading-relaxed text-muted-foreground">{c.descripcion}</p>}
                         </div>
-                        <div className="flex items-center gap-2 self-end sm:self-auto">
+                        <div className="flex w-full items-center justify-end gap-2 self-stretch lg:w-auto lg:self-auto lg:pl-4">
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, Math.max(0, qty - 1))}
-                            className="h-7 w-7 rounded-md border border-border text-white hover:bg-card">−</button>
+                            className="h-8 w-8 shrink-0 rounded-md border border-border text-white hover:bg-card">−</button>
                           <input
                             type="number" min={0} value={qty}
                             onChange={(e) => setItemQty(room.id, c.id, c.concepto, Math.max(0, parseInt(e.target.value || "0", 10)))}
-                            className="w-14 rounded-md border border-border bg-background px-2 py-1 text-center text-sm text-white"
+                            className="h-8 w-16 min-w-0 rounded-md border border-border bg-background px-2 py-1 text-center text-sm text-white"
                           />
                           <button type="button" onClick={() => setItemQty(room.id, c.id, c.concepto, qty + 1)}
-                            className="h-7 w-7 rounded-md border border-border text-white hover:bg-card">+</button>
+                            className="h-8 w-8 shrink-0 rounded-md border border-border text-white hover:bg-card">+</button>
                         </div>
                       </div>
                     );
