@@ -20,7 +20,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-[#d4af37]/25 bg-black/25 backdrop-blur-2xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="group flex flex-shrink-0 items-center gap-3">
           <img
@@ -52,10 +52,11 @@ export function Header() {
           ))}
           <Link
             to="/presupuestos"
-            className="whitespace-nowrap rounded-lg border border-[#0046ff] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:bg-[#0046ff] hover:shadow-[0_0_18px_rgba(0,70,255,0.55)]"
+            className="btn-silver whitespace-nowrap rounded-lg px-4 py-2.5 text-xs font-bold uppercase tracking-wider"
           >
             Solicitar Presupuesto
           </Link>
+
         </nav>
 
         {/* Mobile hamburger */}
@@ -98,10 +99,11 @@ export function Header() {
                 <Link
                   to="/presupuestos"
                   onClick={() => setOpen(false)}
-                  className="block w-full rounded-lg bg-[#0046ff] px-5 py-3.5 text-center text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-[#0035cc]"
+                  className="btn-silver block w-full rounded-lg px-5 py-3.5 text-center text-xs font-bold uppercase tracking-wider"
                 >
                   Solicitar Presupuesto
                 </Link>
+
               </div>
             </div>
           </SheetContent>

@@ -35,10 +35,11 @@ export function Hero() {
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link
               to="/presupuestos"
-              className="glow-button rounded-xl bg-[#0046ff] px-8 py-4 text-center text-sm font-bold uppercase tracking-wide text-white"
+              className="btn-silver rounded-xl px-8 py-4 text-center text-sm font-bold uppercase tracking-wide"
             >
               Solicitar Presupuesto
             </Link>
+
             <Link
               to="/servicios"
               className="rounded-xl border border-border bg-card/50 px-8 py-4 text-center text-sm font-bold uppercase tracking-wide text-gray-300 backdrop-blur-sm transition hover:border-gray-600 hover:text-white"
