@@ -26,7 +26,7 @@ export function Services() {
   const { value: services } = useSiteContent<ServiceItem[]>("services", DEFAULT_SERVICES);
 
   return (
-    <section id="servicios" className="relative bg-background py-24 lg:py-32">
+    <section id="servicios" className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-20 max-w-3xl text-center">
           <h2 className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#e60012]">

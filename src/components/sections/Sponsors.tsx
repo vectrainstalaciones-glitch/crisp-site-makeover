@@ -42,7 +42,7 @@ export function Sponsors() {
   ];
 
   return (
-    <section className="relative overflow-hidden border-y border-border/40 bg-black py-20">
+    <section className="relative overflow-hidden border-y border-border/40 py-20">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,70,255,0.12),transparent_70%)]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="mb-12 text-center text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
