@@ -103,30 +103,57 @@
   }
   .premium-card {
     background:
-      linear-gradient(145deg, oklch(0.36 0.012 250 / 0.85) 0%, oklch(0.24 0.014 250 / 0.92) 100%);
-    border: 1px solid oklch(0.60 0.010 250 / 0.25);
+      linear-gradient(145deg, rgba(20, 20, 22, 0.45) 0%, rgba(10, 10, 12, 0.55) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.22);
     box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.45),
-      inset 0 1px 1px oklch(1 0 0 / 0.10),
-      inset 0 -1px 1px oklch(0 0 0 / 0.35);
-    backdrop-filter: blur(4px);
+      0 20px 40px rgba(0, 0, 0, 0.35),
+      inset 0 1px 1px rgba(255, 230, 160, 0.10),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .premium-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(0, 210, 255, 0.35);
+    border-color: rgba(212, 175, 55, 0.55);
     box-shadow:
-      0 30px 60px rgba(0, 70, 255, 0.20),
-      inset 0 1px 2px oklch(1 0 0 / 0.18),
-      inset 0 -1px 1px oklch(0 0 0 / 0.35);
+      0 30px 60px rgba(212, 175, 55, 0.15),
+      inset 0 1px 2px rgba(255, 230, 160, 0.20),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.35);
   }
   .glow-button {
-    box-shadow: 0 0 20px rgba(0, 70, 255, 0.45);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
     transition: all 0.3s ease;
   }
   .glow-button:hover {
-    box-shadow: 0 0 35px rgba(0, 130, 255, 0.75);
+    box-shadow: 0 0 35px rgba(255, 215, 130, 0.65);
     transform: scale(1.02);
+  }
+  /* Metallic silver button */
+  .btn-silver {
+    background: linear-gradient(145deg, #f5f5f5 0%, #c8c8c8 35%, #9a9a9a 55%, #d8d8d8 80%, #f0f0f0 100%);
+    color: #1a1a1a !important;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      0 6px 18px rgba(0, 0, 0, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 0.85),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+  }
+  .btn-silver:hover {
+    background: linear-gradient(145deg, #ffffff 0%, #dcdcdc 35%, #a8a8a8 55%, #e8e8e8 80%, #ffffff 100%);
+    box-shadow:
+      0 10px 26px rgba(0, 0, 0, 0.5),
+      0 0 24px rgba(220, 220, 220, 0.45),
+      inset 0 1px 1px rgba(255, 255, 255, 1),
+      inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+  }
+  /* Luminous gold text — Vectra logo (text-white inside header) is excluded by scope */
+  .text-gold {
+    color: #f3d27a;
+    text-shadow: 0 0 18px rgba(243, 210, 122, 0.35);
   }
   .marquee {
     animation: marquee 35s linear infinite;
@@ -136,3 +163,37 @@
     to   { transform: translateX(-50%); }
   }
 }
+
+/* === Global elegance: gold text + transparent surfaces ===
+   Scoped to <main> so the VECTRA header logo stays white. */
+main .text-white,
+main .text-foreground {
+  color: #f5d98a !important;
+  text-shadow: 0 0 18px rgba(245, 217, 138, 0.25);
+}
+main .text-gray-200,
+main .text-gray-300,
+main .text-gray-400,
+main .text-muted-foreground {
+  color: #d9bd75 !important;
+}
+main h1, main h2, main h3 {
+  letter-spacing: -0.01em;
+}
+/* Preserve gradient titles */
+main .text-gradient {
+  color: transparent !important;
+  text-shadow: none !important;
+  background: linear-gradient(135deg, #ffe9a8 0%, #f3d27a 45%, #b8860b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Make text-input / textarea fields read as gold while typing */
+main input, main textarea, main select {
+  color: #f5d98a !important;
+}
+main input::placeholder, main textarea::placeholder {
+  color: rgba(217, 189, 117, 0.55) !important;
+}
+

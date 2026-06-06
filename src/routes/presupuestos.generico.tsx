@@ -77,7 +77,7 @@ function Page() {
             <BudgetAttachments value={attachments} onChange={setAttachments} folder="generico" />
             <button
               type="submit" disabled={submitting}
-              className="glow-button w-full rounded-xl bg-[#0046ff] py-4 text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-[#0035cc]"
+              className="btn-silver w-full rounded-xl py-4 text-sm font-bold uppercase tracking-wide"
             >
               Enviar consulta
             </button>
