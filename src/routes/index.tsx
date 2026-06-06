@@ -1,13 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Hero } from "@/components/sections/Hero";
 import { Trajectory } from "@/components/sections/Trajectory";
 import { Projects } from "@/components/sections/Projects";
 import { Sponsors } from "@/components/sections/Sponsors";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { ChatWidget } from "@/components/ChatWidget";
+
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
@@ -43,17 +41,12 @@ function Index() {
   }, []);
 
   return (
-    <div className="dark min-h-screen bg-background text-foreground">
-      <Header />
-      <main>
-        <Hero />
-        <Sponsors />
-        <Trajectory />
-        <Projects />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-      <ChatWidget />
-    </div>
+    <SiteLayout>
+      <Hero />
+      <Sponsors />
+      <Trajectory />
+      <Projects />
+    </SiteLayout>
   );
 }
+

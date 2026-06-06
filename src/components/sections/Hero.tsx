@@ -4,14 +4,15 @@ import { Link } from "@tanstack/react-router";
 
 export function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden border-b border-border/50 pt-20 pb-32 lg:pt-32 lg:pb-40">
+    <section id="inicio" className="relative overflow-hidden border-b border-border/30 pt-20 pb-32 lg:pt-32 lg:pb-40">
       <div
-        className="absolute inset-0 -z-10 opacity-30"
+        className="absolute inset-0 -z-10 opacity-20"
         style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
       />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/70 via-background/85 to-background" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/40 via-black/30 to-transparent" />
       <div className="pointer-events-none absolute left-1/2 top-1/4 -z-10 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0046ff]/15 blur-[150px]" />
       <div className="pointer-events-none absolute right-1/4 top-1/3 -z-10 h-[400px] w-[400px] rounded-full bg-[#e60012]/10 blur-[120px]" />
+
 
       <div className="pointer-events-none absolute right-0 top-10 hidden h-full w-1/2 select-none opacity-10 lg:block">
         <img src={logo} alt="" className="h-full w-full object-contain blur-sm" />

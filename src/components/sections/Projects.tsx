@@ -21,7 +21,7 @@ export function Projects() {
   }, []);
 
   return (
-    <section id="proyectos" className="border-t border-border/40 bg-background py-24">
+    <section id="proyectos" className="border-t border-border/40 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <h2 className="mb-3 text-xs font-extrabold uppercase tracking-[0.2em] text-[#00d2ff]">Proyectos</h2>
