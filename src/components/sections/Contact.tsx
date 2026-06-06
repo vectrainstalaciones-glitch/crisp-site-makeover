@@ -118,7 +118,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={submitting}
-              className="glow-button w-full rounded-xl bg-[#0046ff] py-4 text-sm font-bold uppercase tracking-wide text-white"
+              className="btn-silver w-full rounded-xl py-4 text-sm font-bold uppercase tracking-wide text-white"
             >
               Enviar por WhatsApp
             </button>

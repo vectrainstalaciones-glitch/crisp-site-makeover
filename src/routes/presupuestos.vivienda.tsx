@@ -197,7 +197,7 @@ function Page() {
                 <p className="text-xs text-muted-foreground">Los precios los aplicará nuestro equipo y te llegarán por email.</p>
               </div>
               <button type="submit" disabled={submitting}
-                className="glow-button w-full rounded-xl bg-[#0046ff] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white lg:w-auto">
+                className="btn-silver w-full rounded-xl px-6 py-3 text-sm font-bold uppercase tracking-wide lg:w-auto">
                 Enviar solicitud
               </button>
             </div>
